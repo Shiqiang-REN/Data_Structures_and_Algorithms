@@ -1,4 +1,4 @@
-class LinkedList {
+class DoublyLinkedList {
     constructor(value) {
         this.head = new Node(value);
         this.tail = this.head;
@@ -8,22 +8,27 @@ class LinkedList {
     prepend(value){
         const newNode = new Node(value);
         newNode.next = this.head;
+        this.head.pre = newNode;
         this.head = newNode;
         this.size++;
     }
 
     append(value){
         const newNode = new Node(value);
+        newNode.pre = this.tail;
         this.tail.next = newNode;
         this.tail = newNode;
         this.size++;
     }
 
     insert(index, value){
-        const node = this.get(index);
+        const currentNode = this.get(index);
         const newNode = new Node(value);
-        newNode.next = node.next;
-        node.next = newNode;
+        let follower = currentNode.next;
+        newNode.next = follower;
+        newNode.pre = currentNode;
+        currentNode.next = newNode;
+        follower.pre = newNode;
         this.size++;
     }
 
@@ -34,6 +39,7 @@ class LinkedList {
             this.tail = preNode;
         }else{
             this.get(index - 1).next = this.get(index).next;
+            this.get(index).pre = this.get(index - 1);
         }
         this.size--;
     }
@@ -49,24 +55,6 @@ class LinkedList {
         return node;
     }
 
-    reverse(){
-        this.tail = this.head;
-
-        let pointer = this.head;
-        let currentNode = this.head;
-        let preNode = null;
-
-        while(pointer.next != null){
-            pointer = pointer.next;
-            currentNode.next = preNode;
-            preNode = currentNode;
-            currentNode = pointer;
-        }
-        currentNode.next = preNode;
-        this.head = currentNode;
-
-    }
-
     print(){
         let currentNode = this.head;
         let values = [currentNode.value];
@@ -79,23 +67,20 @@ class LinkedList {
 
 }
 
-class Node{
+class Node {
     constructor(value) {
-        this.value = value;
+        this.pre = null;
         this.next = null;
+        this.value = value;
     }
 }
 
-let myLinkedList = new LinkedList(15);
+let myLinkedList = new DoublyLinkedList(15);
 myLinkedList.prepend(25);
 myLinkedList.append(10);
 myLinkedList.prepend(30);
 myLinkedList.insert(1, 20);
-
+myLinkedList.delete(1);
 // myLinkedList.delete(2);
 console.log(myLinkedList.print());
-myLinkedList.reverse();
-myLinkedList.delete(1);
-console.log(myLinkedList.print());
-//30-25-20-15-10
-// console.log(myLinkedList.get(0));
+console.log(myLinkedList.size);

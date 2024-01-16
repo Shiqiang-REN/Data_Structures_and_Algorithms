@@ -22,6 +22,7 @@ public class $01_DynamicArray {
         capacity = 3;
         length = 0;
     }
+
     public String get(int index){
         if(index>=0 && index < length){
             return arr[index];
@@ -29,6 +30,7 @@ public class $01_DynamicArray {
             return "Index Out Of Bound";
         }
     }
+
     public String[] push(String item){
         if(length == capacity){
             String[] newArr = new String[6];
@@ -42,6 +44,7 @@ public class $01_DynamicArray {
         length++;
         return arr;
     }
+
     public String pop (){
         if(length>0){
             String lastItem = arr[length-1];
@@ -51,6 +54,7 @@ public class $01_DynamicArray {
             return "Empty Array";
         }
     }
+
     public String delete(int index){
         if(index<0 || index >= arr.length){
             return "Index Out Of Bound";
@@ -63,6 +67,7 @@ public class $01_DynamicArray {
             return removedItem;
         }
     }
+
     public static void main(String[] args) {
         $01_DynamicArray myArr = new $01_DynamicArray();
         myArr.push("1");
@@ -75,4 +80,5 @@ public class $01_DynamicArray {
         System.out.println(myArr.length);
         System.out.println(myArr.capacity);
     }
+
 }

@@ -1,3 +1,5 @@
+package data_structures;
+
 public class HashtableItem {
     private String key;
     private String value;

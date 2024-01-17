@@ -1,23 +1,20 @@
+package data_structures;
+
 /**
  * ClassName: $03_LinkedList
  * Package: PACKAGE_NAME
  * Description:
  *
  * @Author Shiqiang Ren
- * @Create 25/7/2023 18:09
+ * @Create 16/1/2024 13:04
  * @Version 1.0
  */
-public class $03_LinkedListWithTail {
-
+public class $03_LinkedList {
     private LinkedListNode head;
-    private LinkedListNode tail;
-    private int size;
 
-    public $03_LinkedListWithTail(int value) {
+    public $03_LinkedList(int value){
         head = new LinkedListNode(value);
         head.value = value;
-        tail = head;
-        size = 1;
     }
 
     //O(1)
@@ -25,15 +22,16 @@ public class $03_LinkedListWithTail {
         LinkedListNode newNode = new LinkedListNode(value);
         newNode.next = head;
         head = newNode;
-        size++;
     }
 
-    //O(1)
+    //O(N)
     public void append(int value){
         LinkedListNode newNode = new LinkedListNode(value);
-        tail.next = newNode;
-        tail = newNode;
-        size++;
+        LinkedListNode pointer = head;
+        while(pointer.next != null){
+            pointer = pointer.next;
+        }
+        pointer.next = newNode;
     }
 
     //O(N)
@@ -42,7 +40,6 @@ public class $03_LinkedListWithTail {
         LinkedListNode currentNode = get(index);
         newNode.next = currentNode.next;
         currentNode.next = newNode;
-        size++;
     }
 
     //O(N)
@@ -52,9 +49,22 @@ public class $03_LinkedListWithTail {
         }else{
             LinkedListNode preNode = get(index - 1);
             preNode.next = get(index).next;
-            tail = preNode;
         }
-        this.size--;
+    }
+
+    public void reverse(){
+        LinkedListNode pointer = this.head;
+        LinkedListNode currentNode = this.head;
+        LinkedListNode preNode = null;
+
+        while(pointer.next != null){
+            pointer = pointer.next;
+            currentNode.next = preNode;
+            preNode = currentNode;
+            currentNode = pointer;
+        }
+        currentNode.next = preNode;
+        this.head = currentNode;
     }
 
     //O(N)
@@ -68,9 +78,15 @@ public class $03_LinkedListWithTail {
         return node;
     }
 
-    //O(1)
+    //O(N)
     public int size() {
-        return size;
+        LinkedListNode pointer = head;
+        int i = 1;
+        while(pointer.next != null){
+            pointer = pointer.next;
+            i++;
+        }
+        return i;
     }
 
     //O(N)
@@ -86,17 +102,16 @@ public class $03_LinkedListWithTail {
     }
 
     public static void main(String[] args) {
-        $03_LinkedListWithTail myLinkedList = new $03_LinkedListWithTail(15);
+        $03_LinkedList myLinkedList = new $03_LinkedList(15);
         myLinkedList.prepend(25);
         myLinkedList.append(10);
         myLinkedList.prepend(30);
         myLinkedList.insert(1, 20);
         myLinkedList.delete(1);
+        myLinkedList.reverse();
         myLinkedList.print();
     }
 }
-
-
 
 
 

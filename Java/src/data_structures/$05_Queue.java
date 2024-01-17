@@ -1,3 +1,5 @@
+package data_structures;
+
 /**
  * ClassName: $05_Queue
  * Package: PACKAGE_NAME

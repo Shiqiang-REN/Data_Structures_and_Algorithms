@@ -1,5 +1,7 @@
+package data_structures;
+
 /**
- * ClassName: LinkedListNode
+ * ClassName: data_structures.LinkedListNode
  * Package: PACKAGE_NAME
  * Description:
  *
